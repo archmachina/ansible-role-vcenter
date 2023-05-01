@@ -12,3 +12,5 @@ vmware_vcenter_clusters: []
 vmware_vcenter_cluster_hosts: []
 vmware_vcenter_standalone_hosts: []
 vmware_vcenter_host_licenses: []
+vmware_vcenter_advanced_settings: {}
+vmware_vcenter_licenses: []
