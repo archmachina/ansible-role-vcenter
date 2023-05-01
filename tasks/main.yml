@@ -1,0 +1,66 @@
+---
+
+- name: vCenter Datacenters
+  community.vmware.vmware_datacenter:
+    validate_certs: "{{ vmware_validate_certs }}"
+    username: "{{ vmware_vcenter_username }}"
+    password: "{{ vmware_vcenter_password }}"
+    hostname: "{{ vmware_vcenter_connection }}"
+    state: present
+    datacenter_name: "{{ item }}"
+  loop: "{{ vmware_vcenter_datacenters }}"
+
+- name: vCenter Clusters
+  community.vmware.vmware_cluster:
+    validate_certs: "{{ vmware_validate_certs }}"
+    username: "{{ vmware_vcenter_username }}"
+    password: "{{ vmware_vcenter_password }}"
+    hostname: "{{ vmware_vcenter_connection }}"
+    state: present
+    datacenter: "{{ item.datacenter_name }}"
+    cluster_name: "{{ item.cluster_name }}"
+  loop: "{{ vmware_vcenter_clusters }}"
+
+- name: vCenter Cluster Hosts
+  community.vmware.vmware_host:
+    validate_certs: "{{ vmware_validate_certs }}"
+    username: "{{ vmware_vcenter_username }}"
+    password: "{{ vmware_vcenter_password }}"
+    hostname: "{{ vmware_vcenter_connection }}"
+    datacenter_name: "{{ item.datacenter_name }}"
+    cluster_name: "{{ item.cluster_name }}"
+    state: present
+    reconnect_disconnected: true
+    force_connection: true
+    esxi_username: "{{ item.esxi_username }}"
+    esxi_password: "{{ item.esxi_password }}"
+    esxi_hostname: "{{ item.esxi_hostname }}"
+  loop: "{{ vmware_vcenter_cluster_hosts }}"
+  no_log: true
+
+- name: vCenter Standalone Hosts
+  community.vmware.vmware_host:
+    validate_certs: "{{ vmware_validate_certs }}"
+    username: "{{ vmware_vcenter_username }}"
+    password: "{{ vmware_vcenter_password }}"
+    hostname: "{{ vmware_vcenter_connection }}"
+    datacenter_name: "{{ item.datacenter_name }}"
+    folder: "{{ item.folder_name }}"
+    state: present
+    reconnect_disconnected: true
+    force_connection: true
+    esxi_username: "{{ item.esxi_username }}"
+    esxi_password: "{{ item.esxi_password }}"
+    esxi_hostname: "{{ item.esxi_hostname }}"
+  loop: "{{ vmware_vcenter_standalone_hosts }}"
+  no_log: true
+
+- name: vCenter Hosts Licenses
+  community.vmware.vcenter_license:
+    validate_certs: "{{ vmware_validate_certs }}"
+    username: "{{ vmware_vcenter_username }}"
+    password: "{{ vmware_vcenter_password }}"
+    hostname: "{{ vmware_vcenter_connection }}"
+    esxi_hostname: "{{ item.esxi_hostname }}"
+    license: "{{ item.license }}"
+  loop: "{{ vmware_vcenter_host_licenses }}"

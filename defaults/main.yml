@@ -1,0 +1,14 @@
+---
+
+# Connection Information
+vmware_validate_certs: true
+# vmware_vcenter_username: ""
+# vmware_vcenter_password: ""
+# vmware_vcenter_connection: ""
+
+# vCenter configuration
+vmware_vcenter_datacenters: []
+vmware_vcenter_clusters: []
+vmware_vcenter_cluster_hosts: []
+vmware_vcenter_standalone_hosts: []
+vmware_vcenter_host_licenses: []
