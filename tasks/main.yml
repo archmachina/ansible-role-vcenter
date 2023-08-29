@@ -72,17 +72,7 @@
     password: "{{ vmware_vcenter_password }}"
     hostname: "{{ vmware_vcenter_connection }}"
     advanced_settings: "{{ vmware_vcenter_advanced_settings }}"
-
-- name: vCenter Mail Settings
-  community.vmware.vmware_vcenter_settings:
-    validate_certs: "{{ vmware_validate_certs }}"
-    username: "{{ vmware_vcenter_username }}"
-    password: "{{ vmware_vcenter_password }}"
-    hostname: "{{ vmware_vcenter_connection }}"
-    mail:
-      sender: "{{ vmware_vcenter_mail_sender }}"
-      server: "{{ vmware_vcenter_mail_server }}"
-  when: vmware_vcenter_mail_server is defined and vmware_vcenter_mail_sender is defined
+    mail: "{{ vmware_vcenter_mail_settings | default(omit) }}"
 
 - name: vCenter Licenses
   community.vmware.vcenter_license:
