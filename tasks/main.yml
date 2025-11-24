@@ -11,14 +11,14 @@
   loop: "{{ vmware_vcenter_datacenters }}"
 
 - name: vCenter Clusters
-  community.vmware.vmware_cluster:
+  vmware.vmware.cluster:
+    state: present
     validate_certs: "{{ vmware_validate_certs }}"
+    hostname: "{{ vmware_vcenter_connection }}"
     username: "{{ vmware_vcenter_username }}"
     password: "{{ vmware_vcenter_password }}"
-    hostname: "{{ vmware_vcenter_connection }}"
-    state: present
     datacenter: "{{ item.datacenter_name }}"
-    cluster_name: "{{ item.cluster_name }}"
+    cluster: "{{ item.cluster_name }}"
   loop: "{{ vmware_vcenter_clusters }}"
 
 - name: vCenter Cluster Hosts
