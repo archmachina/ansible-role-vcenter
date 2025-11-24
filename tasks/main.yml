@@ -73,6 +73,8 @@
     hostname: "{{ vmware_vcenter_connection }}"
     advanced_settings: "{{ vmware_vcenter_advanced_settings }}"
     mail: "{{ vmware_vcenter_mail_settings | default(omit) }}"
+  retries: 3
+  delay: 10
 
 - name: vCenter Licenses
   community.vmware.vcenter_license:
